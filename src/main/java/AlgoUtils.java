@@ -75,7 +75,7 @@ public class AlgoUtils {
                 set.remove(s.charAt(l - 1));
             }
             while (r + 1 < n && !set.contains(s.charAt(r + 1))) {
-                set.add(s.charAt(r+1));
+                set.add(s.charAt(r + 1));
                 r++;
             }
             ans = Math.max(ans, r - l + 1);
@@ -88,14 +88,14 @@ public class AlgoUtils {
         for (int i = 0; i < s.length(); i++) {
             Character left = s.charAt(i);
             String toCheck = s.substring(i, s.lastIndexOf(Character.toString(left)) + 1);
-            int lp = 0, rp = toCheck.length() -1;
-            while(lp < rp) {
+            int lp = 0, rp = toCheck.length() - 1;
+            while (lp < rp) {
 
-                if (toCheck.charAt(lp + 1) == toCheck.charAt(rp -1)) {
+                if (toCheck.charAt(lp + 1) == toCheck.charAt(rp - 1)) {
                     lp++;
                     rp--;
-                }else {
-                    toCheck = toCheck.substring(i,toCheck.lastIndexOf(Character.toString(left)) + 1);
+                } else {
+                    toCheck = toCheck.substring(i, toCheck.lastIndexOf(Character.toString(left)) + 1);
                     rp = toCheck.length() - 1;
                 }
             }
@@ -112,7 +112,7 @@ public class AlgoUtils {
 //        max is dynamic
         int max = 1, begin = 0;
         for (int i = 0; i < charArr.length - 1; i++) {
-            for(int j= i+1; j < charArr.length; j++) {
+            for (int j = i + 1; j < charArr.length; j++) {
                 if (j - i + 1 > max && isPalindrome(charArr, i, j)) {
                     max = j - i + 1;
                     begin = i;
@@ -173,7 +173,7 @@ public class AlgoUtils {
 
     static int reverse(int x) {
         int ans = 0;
-        while( x != 0 ) {
+        while (x != 0) {
             if ((ans * 10) / 10 != ans) {
                 ans = 0;
                 break;
@@ -189,7 +189,7 @@ public class AlgoUtils {
         ListNode dumyNode = new ListNode(0);
         ListNode curNode = dumyNode;
         Set<Integer> set = new HashSet<>();
-        while( head != null ) {
+        while (head != null) {
             int cur = head.val;
             if (set.add(cur)) {
                 curNode.next = new ListNode(cur);
@@ -228,12 +228,12 @@ public class AlgoUtils {
          *
          * length − This is the number of array elements to be copied.
          */
-        System.arraycopy(nums2, 0 , nums1, m, n);
+        System.arraycopy(nums2, 0, nums1, m, n);
         // sort
         Arrays.sort(nums1);
     }
 
-    static  boolean isSameTree(TreeNode p, TreeNode q) {
+    static boolean isSameTree(TreeNode p, TreeNode q) {
         // p and q are both null
         if (p == null && q == null) return true;
         // one of p and q is null
@@ -258,23 +258,22 @@ public class AlgoUtils {
     }
 
     /**
+     * Given a binary tree, find its maximum depth.
+     * <p>
+     * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+     * <p>
+     * Note: A leaf is a node with no children.
+     * <p>
+     * Example:
+     * <p>
+     * Given binary tree [3,9,20,null,null,15,7],
+     * <p>
+     * 3
+     * / \
+     * 9  20
+     * /  \
+     * 15   7
      *
-     Given a binary tree, find its maximum depth.
-
-     The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
-
-     Note: A leaf is a node with no children.
-
-     Example:
-
-     Given binary tree [3,9,20,null,null,15,7],
-
-     3
-     / \
-     9  20
-        /  \
-       15   7
-
      * @param root
      * @return
      */
@@ -290,10 +289,11 @@ public class AlgoUtils {
 
     /**
      * longest prefix
+     *
      * @param strs
      * @return
      */
-    static  String longestCommonPrefix(String[] strs) {
+    static String longestCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) {
             return "";
         }
@@ -314,19 +314,108 @@ public class AlgoUtils {
     static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;
-        }
-        else if (l2 == null) {
+        } else if (l2 == null) {
             return l1;
-        }
-        else if (l1.val < l2.val) {
+        } else if (l1.val < l2.val) {
             l1.next = mergeTwoLists(l1.next, l2);
             return l1;
-        }
-        else {
+        } else {
             l2.next = mergeTwoLists(l1, l2.next);
             return l2;
         }
 
+    }
+
+    /**
+     * reverse a listNode 1->2->3->4->null  => 4->3->2->1->null
+     *
+     * @param head
+     * @return
+     */
+    static ListNode reverseList_1(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode nextTemp = curr.next;
+
+            // prev join follow by the curr's first node
+            curr.next = prev;
+
+            // dynamically change prev
+            prev = curr;
+
+            curr = nextTemp;
+        }
+        return prev;
+    }
+
+    static ListNode reverseList_2(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode p = reverseList_2(head.next);
+        head.next.next = head;
+        head.next = null;
+        return p;
+    }
+
+    /**
+     * Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+     * <p>
+     * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+     *
+     * @param nums
+     * @return
+     */
+    static int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
+        int i = 0;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[j] != nums[i]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
+
+    /**
+     * like java function S.indexOf('sth')
+     *
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    static int strStr(String haystack, String needle) {
+        int L = needle.length(), n = haystack.length();
+
+        for (int start = 0; start < n - L + 1; ++start) {
+            if (haystack.substring(start, start + L).equals(needle)) {
+                return start;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * binary search
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    static int searchInsert(int[] nums, int target) {
+        int n = nums.length;
+        int left = 0, right = n - 1, ans = n;
+        while (left <= right) {
+            // @edu >> 1 means / 2, << 1 means * 2
+            int mid = ((right - left) / 2) + left;
+            if (target <= nums[mid]) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
     }
 }
 

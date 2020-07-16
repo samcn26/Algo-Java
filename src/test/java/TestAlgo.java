@@ -42,30 +42,30 @@ public class TestAlgo {
     public void test4() {
         String s1 = "abbabcbb";
         String s2 = "aaaaaaa";
-        assertEquals(AlgoUtils.longest(s1),3);
-        assertEquals(AlgoUtils.longest(s2),1);
+        assertEquals(AlgoUtils.longest(s1), 3);
+        assertEquals(AlgoUtils.longest(s2), 1);
     }
 
     @Test
     public void test5() {
         String s = "babad";
-        assertEquals(AlgoUtils.longestPalindrome(s),"bab");
+        assertEquals(AlgoUtils.longestPalindrome(s), "bab");
 
         String s2 = "cbbd";
-        assertEquals(AlgoUtils.longestPalindrome(s2),"bb");
+        assertEquals(AlgoUtils.longestPalindrome(s2), "bb");
 
         String s3 = "aaa";
-        assertEquals(AlgoUtils.longestPalindrome(s3),"aaa");
+        assertEquals(AlgoUtils.longestPalindrome(s3), "aaa");
     }
 
     @Test
     public void test6() {
-        assertEquals(AlgoUtils.convert("LEETCODEISHIRING",3),"LCIRETOESIIGEDHN");
-        assertEquals(AlgoUtils.convert("LEETCODEISHIRING",4),"LDREOEIIECIHNTSG");
+        assertEquals(AlgoUtils.convert("LEETCODEISHIRING", 3), "LCIRETOESIIGEDHN");
+        assertEquals(AlgoUtils.convert("LEETCODEISHIRING", 4), "LDREOEIIECIHNTSG");
     }
 
     @Test
-    public  void test7() {
+    public void test7() {
         assertEquals(AlgoUtils.reverse(-123), -321);
     }
 
@@ -79,7 +79,7 @@ public class TestAlgo {
         result.next = new ListNode(2);
 
         ListNode l2 = AlgoUtils.deleteDuplicates(l1);
-        assertTrue(TestUnit.compListNodeVal(result,l2));
+        assertTrue(TestUnit.compListNodeVal(result, l2));
     }
 
     @Test
@@ -89,19 +89,19 @@ public class TestAlgo {
          3
          / \
          9  20
-           /  \
-          15   7
+         /  \
+         15   7
          */
         TreeNode treeNode = new TreeNode(3);
         treeNode.left = new TreeNode(9);
         treeNode.right = new TreeNode(20);
         treeNode.right.left = new TreeNode(15);
         treeNode.right.right = new TreeNode(7);
-        assertEquals(AlgoUtils.maxDepth(treeNode),3);
+        assertEquals(AlgoUtils.maxDepth(treeNode), 3);
     }
 
     @Test
-    public void test10(){
+    public void test10() {
         /*
         Input: 1->2->4, 1->3->4
         Output: 1->1->2->3->4->4
@@ -121,6 +121,47 @@ public class TestAlgo {
         expect.next.next.next.next = new ListNode(4);
         expect.next.next.next.next.next = new ListNode(4);
 
-        assertTrue( TestUnit.compListNodeVal(AlgoUtils.mergeTwoLists(l1,l2), expect) );
+        assertTrue(TestUnit.compListNodeVal(AlgoUtils.mergeTwoLists(l1, l2), expect));
     }
+
+    @Test
+    public void test11() {
+        /*
+        reverse a listNode 1->2->3->4->null  => 4->3->2->1->null
+         */
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(2);
+        l1.next.next = new ListNode(3);
+        l1.next.next.next = new ListNode(4);
+
+        ListNode l2 = new ListNode(4);
+        l2.next = new ListNode(3);
+        l2.next.next = new ListNode(2);
+        l2.next.next.next = new ListNode(1);
+
+        assertTrue(TestUnit.compListNodeVal(AlgoUtils.reverseList_1(l1), l2));
+
+        l1 = new ListNode(1);
+        l1.next = new ListNode(2);
+        l1.next.next = new ListNode(3);
+        l1.next.next.next = new ListNode(4);
+
+        l2 = new ListNode(4);
+        l2.next = new ListNode(3);
+        l2.next.next = new ListNode(2);
+        l2.next.next.next = new ListNode(1);
+
+        assertTrue(TestUnit.compListNodeVal(AlgoUtils.reverseList_2(l1), l2));
+    }
+
+    @Test
+    public void test12() {
+        int target = 6;
+        int[] nums = new int[]{1, 3, 5, 6};
+        assertEquals(AlgoUtils.searchInsert(nums, target), 3);
+
+        target = 0;
+        assertEquals(AlgoUtils.searchInsert(nums, target), 0 );
+    }
+
 }
