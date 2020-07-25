@@ -4,6 +4,10 @@ import org.junit.Test;
 
 public class TestAlgo {
     @Test
+    public void test0(){
+    }
+
+    @Test
     public void test1() {
         assertEquals(AlgoUtils.sumOneToN(100), 5050);
     }
@@ -162,6 +166,19 @@ public class TestAlgo {
 
         target = 0;
         assertEquals(AlgoUtils.searchInsert(nums, target), 0 );
+    }
+
+    @Test
+    public void test13() {
+        int expect = 4;
+        int n = 10;
+        assertEquals(AlgoUtils.countPrimes(n),expect);
+    }
+
+    @Test
+    public void test14() {
+        String s = "A man, a plan, a canal: Panama";
+        assertTrue(AlgoUtils.isPalindrome(s));
     }
 
 }

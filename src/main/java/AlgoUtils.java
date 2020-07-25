@@ -417,5 +417,86 @@ public class AlgoUtils {
         }
         return ans;
     }
+
+    /**
+     * count primes figure less than n
+     * @param n
+     * @return
+     */
+    static int countPrimes(int n) {
+        boolean[] notPrime = new boolean[n];
+        int count = 0;
+        if (n>2) count++;
+        for (int i = 3; i < n; i+=2) {
+            if (notPrime[i] == false) {
+                count++;
+                for (int j = 3; i * j < n; j += 2) {
+                    notPrime[i * j] = true;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * string + string as binary addition then return string
+     * @param a
+     * @param b
+     * @return
+     */
+    static String addBinary(String a, String b) {
+        StringBuffer ans = new StringBuffer();
+
+        int n = Math.max(a.length(), b.length()), carry = 0;
+        for (int i = 0; i < n; ++i) {
+            // '1' - '0' = 1
+            carry += i < a.length() ? (a.charAt(a.length() - 1 - i) - '0') : 0;
+            carry += i < b.length() ? (b.charAt(b.length() - 1 - i) - '0') : 0;
+            ans.append((char) (carry % 2 + '0'));
+            carry /= 2;
+        }
+
+        if (carry > 0) {
+            ans.append('1');
+        }
+        ans.reverse();
+
+        return ans.toString();
+    }
+
+    /**
+     * Say you have an array for which the ith element is the price of a given stock on day i.
+     *
+     * If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock),
+     * design an algorithm to find the maximum profit.
+     *
+     * Note that you cannot sell a stock before you buy one.
+     * @param prices
+     * @return
+     */
+    static  int maxProfit(int prices[]) {
+        int minprice = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            // keep tracking minprice and maxprofit
+            if (prices[i] < minprice)
+                minprice = prices[i];
+            else if (prices[i] - minprice > maxprofit)
+                maxprofit = prices[i] - minprice;
+        }
+        return maxprofit;
+    }
+
+    static boolean isPalindrome(String s) {
+//        s.replaceAll("\\W","");
+        StringBuffer ans = new StringBuffer();
+        for(int i =0; i< s.length(); i ++) {
+            if (Character.isLetterOrDigit(s.charAt(i))) {
+                ans.append(Character.toLowerCase(s.charAt(i)));
+            }
+        }
+        String expect = new StringBuffer(ans).toString();
+        return expect.equals(ans.toString());
+    }
 }
 
